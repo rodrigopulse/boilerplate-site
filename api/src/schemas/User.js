@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+import bcrypt from 'bcrypt'
 
 const UserSchema = new Schema(
   {
@@ -9,7 +10,8 @@ const UserSchema = new Schema(
         unique: true
       }
     },
-    name: String
+    name: String,
+    password: String
   },
   {
     collection: 'users',
@@ -17,5 +19,15 @@ const UserSchema = new Schema(
     timestamps: true
   }
 )
+
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next()
+  try {
+    this.password = await bcrypt.hash(this.password, 12)
+    return next()
+  } catch (err) {
+    return next(err)
+  }
+})
 
 export default model('User', UserSchema)
