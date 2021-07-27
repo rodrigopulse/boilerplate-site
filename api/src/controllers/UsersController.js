@@ -1,4 +1,6 @@
 import User from '../schemas/User'
+import bcrypt from 'bcrypt'
+import jwt from 'jwt-simple'
 class UsersController {
   async add(req, res) {
     try {
@@ -18,6 +20,40 @@ class UsersController {
       return res.status(200).json(users)
     } catch (err) {
       return res.status(400).json({ message: 'Ocorreu um erro', error: err })
+    }
+  }
+  async login(req, res) {
+    try {
+      const user = await User.findOne({ email: req.body.email })
+      if (user.length === 0) {
+        return res
+          .status(401)
+          .json({ message: 'Usuário e/ou senha incorretos - 1' })
+      }
+      bcrypt.compare(req.body.password, user.password, function (err, result) {
+        if (result) {
+          const payload = { id: user._id }
+          const token = jwt.encode(payload, process.env.SECRET_JWT || '')
+          return res.status(200).json({
+            _id: user._id,
+            email: user.email,
+            name: user.name,
+            token: token
+          })
+        } else if (err) {
+          return res
+            .status(403)
+            .json({ message: 'Ocorreu um problema', error: err })
+        } else {
+          return res
+            .status(401)
+            .json({ message: 'Usuário e/ou senha incorretos - 2' })
+        }
+      })
+    } catch (err) {
+      return res
+        .status(401)
+        .json({ message: 'Usuário e/ou senha incorretos - 3', error: err })
     }
   }
 }
