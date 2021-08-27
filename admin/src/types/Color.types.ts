@@ -1,4 +1,4 @@
-type colors = 'primary' | 'secondary'
+type colors = 'primary' | 'secondary' | 'light-gray'
 export interface ColorProps {
   color?: colors
   background?: colors
