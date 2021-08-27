@@ -1,16 +1,5 @@
 version: '3.7'
 services:
-  api:
-    container_name: boilerplate-api
-    build: ./api
-    ports:
-      - '3334:3333'
-    volumes:
-      - ./api:/usr/app
-    networks:
-      - app-network
-    command: yarn run dev
-
   mongodb:
     image: mongo:latest
     container_name: boilerplate-mongo

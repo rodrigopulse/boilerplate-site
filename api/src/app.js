@@ -24,11 +24,14 @@ class App {
     const password = process.env.DB_PASSWORD
     const host = process.env.DB_HOST
     const name = process.env.DB_NAME
-    mongoose.connect(`mongodb+srv://${user}:${password}@${host}/${name}`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true
-    })
+    mongoose.connect(
+      `mongodb://${user}:${password}@${host}/${name}?authSource=admin`,
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+      }
+    )
   }
   routes() {
     this.express.use(routes)

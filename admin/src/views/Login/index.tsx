@@ -2,13 +2,18 @@ import React, { useState } from 'react'
 import { Container, Input, Button } from '../../components'
 import './styles.scss'
 
+// Api
+import { LoginService } from '../../services/auth'
+
 const Login: React.FC = () => {
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    console.log(e)
+    LoginService({ email: user, password: password }).then((res) =>
+      console.log(res)
+    )
   }
 
   return (
