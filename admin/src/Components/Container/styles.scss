@@ -1,0 +1,9 @@
+.container {
+  width: 100%;
+  height: auto;
+  position: relative;
+  &--full {
+    width: 100vw;
+    height: 100vh;
+  }
+}

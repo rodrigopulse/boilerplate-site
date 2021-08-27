@@ -1,0 +1,18 @@
+$colors: (
+  'primary': #42cfb8,
+  'secondary': #202128
+);
+
+// Color
+@each $name, $value in $colors {
+  .color--#{$name} {
+    color: $value;
+  }
+}
+
+// Background
+@each $name, $value in $colors {
+  .background--#{$name} {
+    background: $value;
+  }
+}
