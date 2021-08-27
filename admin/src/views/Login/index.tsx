@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Input, Button } from '../../Components'
+import { Container, Input, Button } from '../../components'
 import './styles.scss'
 
 const Login: React.FC = () => {
