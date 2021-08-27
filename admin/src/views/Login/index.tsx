@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Input } from '../../Components'
+import { Container, Input, Button } from '../../Components'
 import './styles.scss'
 
 const Login: React.FC = () => {
@@ -20,6 +20,7 @@ const Login: React.FC = () => {
           value={password}
           type="password"
         />
+        <Button label="Entrar" full />
       </div>
     </Container>
   )
