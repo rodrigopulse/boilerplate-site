@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Container, Input, Button } from '../../components'
+import { useDispatch } from 'react-redux'
+import { AlertAction } from '../../store/actions'
 import './styles.scss'
 
 // Api
@@ -9,10 +11,14 @@ const Login: React.FC = () => {
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
 
+  const dispatch = useDispatch()
+
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    LoginService({ email: user, password: password }).then((res) =>
-      console.log(res)
+    LoginService({ email: user, password: password }).then(
+      (res) =>
+        res.status === 401 &&
+        dispatch(AlertAction(true, 'danger', 'Usuário e/ou senha incorretos'))
     )
   }
 

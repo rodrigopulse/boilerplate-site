@@ -9,6 +9,6 @@ export const LoginService = async (data) => {
     })
     return login
   } catch (err) {
-    return err
+    return err.response
   }
 }

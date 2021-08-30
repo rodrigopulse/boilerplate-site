@@ -1,22 +1,28 @@
 import React from 'react'
 import './styles.scss'
-import { AlertProps } from './types'
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
+import { AlertAction } from '../../store/actions'
 import { Button } from '../'
 
-export const Alert: React.FC<AlertProps> = ({ show, type, message }) => {
+export const Alert: React.FC = () => {
+  const alertState = useSelector((state: RootStateOrAny) => state.AlertReducer)
+  const dispatch = useDispatch()
   const getClasses = () => {
     const classes = ['alert']
-    type === 'danger' && classes.push('background--danger')
-    type === 'warning' && classes.push('background--warning')
-    type === 'success' && classes.push('background--success')
+    alertState.alertType === 'danger' && classes.push('background--danger')
+    alertState.alertType === 'warning' && classes.push('background--warning')
+    alertState.alertType === 'success' && classes.push('background--success')
     return classes.join(' ')
+  }
+  const closeAlert = () => {
+    dispatch(AlertAction(false, '', ''))
   }
   return (
     <>
-      {show && (
-        <div className={getClasses()}>
-          <span>{message}</span>
-          <Button label="close" icon />
+      {alertState.show && (
+        <div className={getClasses()} onClick={() => closeAlert()}>
+          <span>{alertState.message}</span>
+          <Button label="close" icon onClick={() => closeAlert()} />
         </div>
       )}
     </>

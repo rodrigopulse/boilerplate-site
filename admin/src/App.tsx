@@ -9,7 +9,7 @@ import Login from './views/Login'
 const App: React.FC = () => {
   return (
     <Router>
-      <Alert show type="success" message="Uma mensagem de sucesso" />
+      <Alert />
       <Switch>
         <Route path="/">
           <Login />
