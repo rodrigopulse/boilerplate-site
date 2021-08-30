@@ -1,13 +1,14 @@
 import React from 'react'
 import './styles.scss'
 import { AlertProps } from './types'
+import { Button } from '../'
 
 export const Alert: React.FC<AlertProps> = ({ show, type, message }) => {
   const getClasses = () => {
     const classes = ['alert']
-    type === 'danger' && classes.push('background--danger', 'color--light')
-    type === 'warning' && classes.push('background--warning', 'color--dark')
-    type === 'success' && classes.push('background--success', 'color--light')
+    type === 'danger' && classes.push('background--danger')
+    type === 'warning' && classes.push('background--warning')
+    type === 'success' && classes.push('background--success')
     return classes.join(' ')
   }
   return (
@@ -15,6 +16,7 @@ export const Alert: React.FC<AlertProps> = ({ show, type, message }) => {
       {show && (
         <div className={getClasses()}>
           <span>{message}</span>
+          <Button label="close" icon />
         </div>
       )}
     </>

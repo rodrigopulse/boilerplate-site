@@ -3,4 +3,5 @@ export interface ButtonProps {
   full?: boolean
   onClick?: (e: any) => void
   type?: 'submit' | 'button'
+  icon?: boolean
 }

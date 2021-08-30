@@ -8,12 +8,23 @@
   background: $primary;
   border: 0;
   border-radius: 30px;
-  color: #222;
+  color: $secondary;
   font-weight: 700;
   cursor: pointer;
   transition: all ease-in-out 0.4s;
   &:hover {
     background: $primaryHover;
+  }
+
+  &.material-icons {
+    min-width: auto;
+    padding: 0;
+    height: auto;
+    background: none;
+    border-radius: 0;
+    &:hover {
+      background: none;
+    }
   }
   &--full {
     width: 100%;

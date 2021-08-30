@@ -1,3 +1,5 @@
+@import '../../assets/styles/variables.scss';
+
 .input {
   width: 100%;
   height: 60px;
@@ -8,6 +10,7 @@
   background: #fff;
   transition: all ease-in-out 0.4s;
   margin-bottom: 15px;
+  color: $secondary;
   &::placeholder {
     color: #888888;
   }

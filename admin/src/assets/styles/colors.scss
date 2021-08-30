@@ -11,9 +11,11 @@ $colors: (
 );
 
 // Color
-@each $name, $value in $colors {
-  .color--#{$name} {
-    color: $value;
+.color {
+  @each $name, $value in $colors {
+    &--#{$name} {
+      color: $value !important;
+    }
   }
 }
 
