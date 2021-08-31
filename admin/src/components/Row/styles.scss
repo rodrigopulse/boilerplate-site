@@ -1,0 +1,15 @@
+.row {
+  width: 100%;
+  height: auto;
+}
+.row-bottom {
+  &--sm {
+    margin-bottom: 15px;
+  }
+  &--md {
+    margin-bottom: 30px;
+  }
+  &--lg {
+    margin-bottom: 54px;
+  }
+}

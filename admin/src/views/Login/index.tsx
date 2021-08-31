@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Input, Button } from '../../components'
+import { Container, Input, Button, Row } from '../../components'
 import { useDispatch } from 'react-redux'
 import { AlertAction, UserAction } from '../../store/actions'
 import './styles.scss'
@@ -36,18 +36,22 @@ const Login: React.FC = () => {
             handleSubmit(e)
           }}
         >
-          <Input
-            placeholder="Usuário"
-            onChange={(e) => setUser(e)}
-            value={user}
-            type="text"
-          />
-          <Input
-            placeholder="Senha"
-            onChange={(e) => setPassword(e)}
-            value={password}
-            type="password"
-          />
+          <Row>
+            <Input
+              placeholder="Usuário"
+              onChange={(e) => setUser(e)}
+              value={user}
+              type="text"
+            />
+          </Row>
+          <Row>
+            <Input
+              placeholder="Senha"
+              onChange={(e) => setPassword(e)}
+              value={password}
+              type="password"
+            />
+          </Row>
           <Button label="Entrar" type="submit" full />
         </form>
       </div>

@@ -9,6 +9,10 @@ import { UserAction } from './store/actions'
 // Views
 import Login from './views/Login'
 import Home from './views/Home'
+import Hero from './views/Hero'
+
+// TemplateParts
+import { Sidebar } from './templateParts'
 
 const App = () => {
   const [loading, setLoading] = useState(true)
@@ -33,11 +37,17 @@ const App = () => {
     <Router>
       <Alert />
       {!loading && userState.logged && (
-        <Switch>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <>
+          <Sidebar />
+          <Switch>
+            <Route path="/hero">
+              <Hero />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </>
       )}
       {!loading && !userState.logged && (
         <Route path="/">

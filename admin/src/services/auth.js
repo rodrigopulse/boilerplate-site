@@ -20,7 +20,6 @@ export const Token = async (data) => {
       headers: { Authorization: `Bearer ${data.token}` },
       method: 'POST'
     })
-    console.log(token)
     return token
   } catch (err) {
     return err.response

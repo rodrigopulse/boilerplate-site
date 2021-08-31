@@ -3,4 +3,5 @@ export interface InputProps {
   value?: string
   onChange: (e: any) => void
   type?: 'text' | 'number' | 'password'
+  label?: string
 }

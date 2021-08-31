@@ -6,4 +6,9 @@
     width: 100vw;
     height: 100vh;
   }
+  &--content {
+    max-width: 720px;
+    left: 340px;
+    padding: 30px;
+  }
 }

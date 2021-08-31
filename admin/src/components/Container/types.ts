@@ -3,4 +3,5 @@ export interface ContainerProps {
   align?: 'start' | 'center' | 'end'
   direction?: 'column' | 'row'
   full?: boolean
+  content?: boolean
 }

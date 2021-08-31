@@ -5,7 +5,9 @@ import { InputProps } from './types'
 export const Input: React.FC<InputProps> = ({
   placeholder,
   type,
-  onChange
+  onChange,
+  label,
+  value
 }) => {
   const onChangeReturn = (e: any) => {
     let element = e.target.value
@@ -15,11 +17,15 @@ export const Input: React.FC<InputProps> = ({
     onChange(element)
   }
   return (
-    <input
-      className="input"
-      placeholder={placeholder}
-      type={type}
-      onChange={(e) => onChangeReturn(e)}
-    />
+    <>
+      {label && <label className="label">{label}</label>}
+      <input
+        className="input"
+        placeholder={placeholder}
+        value={value}
+        type={type}
+        onChange={(e) => onChangeReturn(e)}
+      />
+    </>
   )
 }

@@ -1,4 +1,6 @@
 export { Alert } from './Alert'
-export { Container } from './Container'
 export { Button } from './Button'
+export { Container } from './Container'
 export { Input } from './Input'
+export { Row } from './Row'
+export { Text } from './Text'
