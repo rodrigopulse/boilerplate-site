@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.scss'
 import { Alert } from './components'
 import { Token } from './services/auth'
