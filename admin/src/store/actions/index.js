@@ -6,3 +6,12 @@ export const AlertAction = (show, alertType, message) => {
     message
   }
 }
+
+export const UserAction = (logged, email, name) => {
+  return {
+    type: 'USER',
+    logged,
+    email,
+    name
+  }
+}

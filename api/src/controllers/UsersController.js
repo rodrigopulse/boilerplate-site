@@ -53,6 +53,9 @@ class UsersController {
         .json({ message: 'Usuário e/ou senha incorretos - 3', error: err })
     }
   }
+  async token(req, res) {
+    return res.status(200).json({ message: 'Token válido' })
+  }
 }
 
 export default new UsersController()
