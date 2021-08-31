@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './styles.scss'
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import { AlertAction } from '../../store/actions'
@@ -17,6 +17,13 @@ export const Alert: React.FC = () => {
   const closeAlert = () => {
     dispatch(AlertAction(false, '', ''))
   }
+  useEffect(() => {
+    if (alertState.show) {
+      setTimeout(() => {
+        closeAlert()
+      }, 3000)
+    }
+  }, [alertState.show])
   return (
     <>
       {alertState.show && (

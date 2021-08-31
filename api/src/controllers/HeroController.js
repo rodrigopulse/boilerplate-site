@@ -19,6 +19,19 @@ class HeroController {
       return res.status(400).json({ message: 'Ocorreu um erro', error: err })
     }
   }
+  async update(req, res) {
+    try {
+      if (!req.body._id) {
+        return res.status(400).json({ message: 'Id incorreto' })
+      }
+      const hero = await Hero.updateOne({ _id: req.body._id }, req.body)
+      console.log(hero)
+      return res.status(200).json({ message: 'Atualizado com sucesso' })
+    } catch (err) {
+      console.log('erro: ', err)
+      return res.status(400).json({ message: 'Ocorreu um erro', error: err })
+    }
+  }
 }
 
 export default new HeroController()

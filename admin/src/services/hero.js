@@ -11,3 +11,17 @@ export const getHero = async () => {
     return err.response
   }
 }
+
+export const updateHero = async (data) => {
+  try {
+    const hero = await axios({
+      url: `${process.env.REACT_APP_API_URL}/hero/update`,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      data: data,
+      method: 'PUT'
+    })
+    return hero
+  } catch (err) {
+    return err.response
+  }
+}

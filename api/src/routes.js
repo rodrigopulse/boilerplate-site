@@ -20,5 +20,6 @@ routes.post('/user/login', UsersController.login)
 // Pages
 routes.post('/hero/add', Auth.authToken, HeroController.add)
 routes.get('/hero/get', HeroController.get)
+routes.put('/hero/update', Auth.authToken, HeroController.update)
 
 export default routes

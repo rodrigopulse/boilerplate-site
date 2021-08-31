@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.scss'
-import { Alert } from './components'
+
 import { Token } from './services/auth'
 import { UserAction } from './store/actions'
+
+//Components
+import { Alert, Loading } from './components'
 
 // Views
 import Login from './views/Login'
@@ -15,6 +18,7 @@ import Hero from './views/Hero'
 import { Sidebar } from './templateParts'
 
 const App = () => {
+  // Loading apenas para verificar se está logado, ele não interfere o component
   const [loading, setLoading] = useState(true)
   const userState = useSelector((state: RootStateOrAny) => state.UserReducer)
   const dispatch = useDispatch()
@@ -36,6 +40,7 @@ const App = () => {
   return (
     <Router>
       <Alert />
+      <Loading />
       {!loading && userState.logged && (
         <>
           <Sidebar />
