@@ -8,6 +8,12 @@ const HeroSchema = new Schema(
     }
   },
   {
+    imageDesktop: {
+      type: String,
+      required: true
+    }
+  },
+  {
     collection: 'hero',
     versionKey: false,
     timestamps: true

@@ -1,3 +1,4 @@
+import fs from 'fs'
 import Hero from '../schemas/Hero'
 
 class HeroController {
@@ -20,6 +21,15 @@ class HeroController {
     }
   }
   async update(req, res) {
+    const nameImageDesktop = req.file.filename
+    fs.rename(
+      `./images/${nameImageDesktop}`,
+      './images/hero-desktop.jpg',
+      function (err) {
+        if (err) console.log('ERROR: ' + err)
+      }
+    )
+    req.body.imageDesktop = 'hero-desktop.jpg'
     try {
       if (!req.body._id) {
         return res.status(400).json({ message: 'Id incorreto' })

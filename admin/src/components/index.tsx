@@ -1,5 +1,6 @@
 export { Alert } from './Alert'
 export { Button } from './Button'
+export { CropImage } from './CropImage'
 export { Container } from './Container'
 export { Input } from './Input'
 export { Loading } from './Loading'

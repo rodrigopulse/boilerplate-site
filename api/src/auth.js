@@ -6,7 +6,6 @@ class Auth {
       let token = req.headers.authorization
       token = token.split(' ')
       token = token[1]
-      console.log(token)
       if (token === undefined) {
         return res.status(401).json({ message: 'Não existe token no header' })
       } else {

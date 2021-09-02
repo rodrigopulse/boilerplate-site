@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Text, Input, Row, Button } from '../../components'
+import {
+  Container,
+  Text,
+  Input,
+  Row,
+  Button,
+  CropImage
+} from '../../components'
 import { getHero, updateHero } from '../../services/hero'
 import { AlertAction, LoadingAction } from '../../store/actions'
 import { useDispatch } from 'react-redux'
@@ -8,6 +15,7 @@ const Hero: React.FC = () => {
   const dispatch = useDispatch()
   const [id, setId] = useState('')
   const [title, setTitle] = useState('')
+  const [imageDesktop, setImageDesktop] = useState('')
   useEffect(() => {
     onGetHero()
   }, [])
@@ -20,14 +28,17 @@ const Hero: React.FC = () => {
         setTitle(res.data.title)
       })
       .catch((err) => {
-        dispatch(AlertAction(true, 'danger', err.data.message))
+        dispatch(AlertAction(true, 'danger', 'erro'))
         dispatch(LoadingAction(false))
       })
   }
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = () => {
     dispatch(LoadingAction(true))
-    updateHero({ _id: id, title: title })
+    const data = new FormData()
+    data.append('_id', id)
+    data.append('title', title)
+    data.append('imageDesktop', imageDesktop)
+    updateHero(data)
       .then((res) => {
         dispatch(LoadingAction(false))
         if (res.status === 200) {
@@ -39,7 +50,7 @@ const Hero: React.FC = () => {
       })
       .catch((err) => {
         dispatch(LoadingAction(false))
-        dispatch(AlertAction(true, 'danger', err.data.message))
+        dispatch(AlertAction(true, 'danger', 'erro'))
       })
   }
   return (
@@ -49,25 +60,28 @@ const Hero: React.FC = () => {
           Hero
         </Text>
       </Row>
-      <form
-        onSubmit={(e: React.SyntheticEvent) => {
-          handleSubmit(e)
-        }}
-      >
-        <Row>
-          <Input
-            label="Título"
-            value={title}
-            placeholder="Adicione o título para o hero"
-            onChange={(e) => {
-              setTitle(e)
-            }}
-          />
-        </Row>
-        <Container justify="center">
-          <Button label="Salvar" type="submit" />
-        </Container>
-      </form>
+      <Row>
+        <Input
+          label="Título"
+          value={title}
+          placeholder="Adicione o título para o hero"
+          onChange={(e) => {
+            setTitle(e)
+          }}
+        />
+      </Row>
+      <Row>
+        <CropImage
+          maxWidth={640}
+          maxHeight={640}
+          imageOut={(e) => {
+            setImageDesktop(e)
+          }}
+        />
+      </Row>
+      <Container justify="center">
+        <Button label="Salvar" onClick={() => handleSubmit()} />
+      </Container>
     </Container>
   )
 }
