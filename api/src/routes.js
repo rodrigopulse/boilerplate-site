@@ -28,7 +28,12 @@ routes.post('/user/token', Auth.authToken, UsersController.token)
 routes.post('/user/login', UsersController.login)
 
 // Pages
-routes.post('/hero/add', Auth.authToken, HeroController.add)
+routes.post(
+  '/hero/add',
+  Auth.authToken,
+  upload.single('heroDesktop'),
+  HeroController.add
+)
 routes.get('/hero/get', HeroController.get)
 routes.put(
   '/hero/update',

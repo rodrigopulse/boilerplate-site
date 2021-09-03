@@ -7,7 +7,7 @@ import {
   Button,
   CropImage
 } from '../../components'
-import { getHero, updateHero } from '../../services/hero'
+import { getHero, updateHero, addHero } from '../../services/hero'
 import { AlertAction, LoadingAction } from '../../store/actions'
 import { useDispatch } from 'react-redux'
 
@@ -16,6 +16,7 @@ const Hero: React.FC = () => {
   const [id, setId] = useState('')
   const [title, setTitle] = useState('')
   const [heroDesktop, setHeroDesktop] = useState('')
+  const [add, setAdd] = useState(false)
   useEffect(() => {
     onGetHero()
   }, [])
@@ -23,12 +24,17 @@ const Hero: React.FC = () => {
     dispatch(LoadingAction(true))
     getHero()
       .then((res) => {
-        console.log(res)
+        if (!res.data) {
+          setAdd(true)
+        } else {
+          setId(res.data._id)
+          setTitle(res.data.title)
+          setHeroDesktop(res.data.heroDesktop)
+        }
         dispatch(LoadingAction(false))
-        setId(res.data._id)
-        setTitle(res.data.title)
       })
       .catch((err) => {
+        console.log(err)
         dispatch(AlertAction(true, 'danger', 'erro'))
         dispatch(LoadingAction(false))
       })
@@ -36,23 +42,40 @@ const Hero: React.FC = () => {
   const handleSubmit = () => {
     dispatch(LoadingAction(true))
     const data = new FormData()
-    data.append('_id', id)
     data.append('title', title)
     data.append('heroDesktop', heroDesktop)
-    updateHero(data)
-      .then((res) => {
-        dispatch(LoadingAction(false))
-        if (res.status === 200) {
-          onGetHero()
-          dispatch(AlertAction(true, 'success', res.data.message))
-        } else {
-          dispatch(AlertAction(true, 'danger', res.data.message))
-        }
-      })
-      .catch((err) => {
-        dispatch(LoadingAction(false))
-        dispatch(AlertAction(true, 'danger', 'erro'))
-      })
+    if (add) {
+      addHero(data)
+        .then((res) => {
+          dispatch(LoadingAction(false))
+          if (res.status === 201) {
+            onGetHero()
+            dispatch(AlertAction(true, 'success', res.data.message))
+          } else {
+            dispatch(AlertAction(true, 'danger', res.data.message))
+          }
+        })
+        .catch((err) => {
+          dispatch(LoadingAction(false))
+          dispatch(AlertAction(true, 'danger', 'erro'))
+        })
+    } else {
+      data.append('_id', id)
+      updateHero(data)
+        .then((res) => {
+          dispatch(LoadingAction(false))
+          if (res.status === 200) {
+            onGetHero()
+            dispatch(AlertAction(true, 'success', res.data.message))
+          } else {
+            dispatch(AlertAction(true, 'danger', res.data.message))
+          }
+        })
+        .catch((err) => {
+          dispatch(LoadingAction(false))
+          dispatch(AlertAction(true, 'danger', 'erro'))
+        })
+    }
   }
   return (
     <Container content>
@@ -78,6 +101,7 @@ const Hero: React.FC = () => {
           imageOut={(e) => {
             setHeroDesktop(e)
           }}
+          imageIn={heroDesktop}
         />
       </Row>
       <Container justify="center">

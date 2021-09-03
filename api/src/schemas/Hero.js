@@ -2,19 +2,11 @@ import { Schema, model } from 'mongoose'
 
 const HeroSchema = new Schema(
   {
-    title: {
-      type: String,
-      required: true
-    }
+    title: String,
+    heroDesktop: String
   },
   {
-    heroDesktop: {
-      type: String,
-      required: true
-    }
-  },
-  {
-    collection: 'hero',
+    collection: 'heros',
     versionKey: false,
     timestamps: true
   }

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Button, Container, Row } from '../'
 import Resizer from 'react-image-file-resizer'
 import { CropImageProps } from './types'
@@ -7,10 +7,16 @@ import './styles.scss'
 export const CropImage: React.FC<CropImageProps> = ({
   maxWidth,
   maxHeight,
-  imageOut
+  imageOut,
+  imageIn
 }) => {
   const inputImage = useRef<HTMLInputElement>(null)
   const [image, setImage] = useState<any>()
+
+  useEffect(() => {
+    typeof imageIn === 'string' &&
+      setImage(`http://localhost:3333/images/${imageIn}`)
+  }, [imageIn])
 
   const resizeFile = (file: any) =>
     new Promise((resolve) => {
@@ -29,21 +35,25 @@ export const CropImage: React.FC<CropImageProps> = ({
     })
   const loadImage = (file: any) => {
     resizeFile(file).then((res) => {
-      setImage(res)
+      const resizedImage = URL.createObjectURL(res)
+      setImage(resizedImage.toString())
       imageOut(res)
     })
   }
 
   return (
-    <div className="crop-image">
+    <div
+      className="crop-image"
+      onClick={() => {
+        if (inputImage.current) {
+          inputImage.current.click()
+        }
+      }}
+    >
       <Row>
         <label className="crop-image__label">Imagem Desktop</label>
         <div className="crop-image__image-canvas">
-          {image ? (
-            <img src={URL.createObjectURL(image)} alt="Preview" />
-          ) : (
-            'Sem imagem'
-          )}
+          {image ? <img src={image} alt="Preview" /> : 'Sem imagem'}
         </div>
       </Row>
       <Container justify="end">
@@ -53,14 +63,6 @@ export const CropImage: React.FC<CropImageProps> = ({
           ref={inputImage}
           onChange={(e) => {
             loadImage(e)
-          }}
-        />
-        <Button
-          label="Trocar Imagem"
-          onClick={() => {
-            if (inputImage.current) {
-              inputImage.current.click()
-            }
           }}
         />
       </Container>

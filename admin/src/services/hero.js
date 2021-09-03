@@ -1,5 +1,19 @@
 import axios from 'axios'
 
+export const addHero = async (data) => {
+  try {
+    const hero = await axios({
+      url: `${process.env.REACT_APP_API_URL}/hero/add`,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      data: data,
+      method: 'POST'
+    })
+    return hero
+  } catch (err) {
+    return err.response
+  }
+}
+
 export const getHero = async () => {
   try {
     const hero = await axios({
