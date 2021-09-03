@@ -3,5 +3,5 @@ export interface CropImageProps {
   maxHeight: number
   imageOut: (e: any) => void
   imageIn: string
-  description: string
+  label: string
 }

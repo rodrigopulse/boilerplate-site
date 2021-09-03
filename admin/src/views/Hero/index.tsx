@@ -16,6 +16,7 @@ const Hero: React.FC = () => {
   const [id, setId] = useState('')
   const [title, setTitle] = useState('')
   const [heroDesktop, setHeroDesktop] = useState('')
+  const [heroMobile, setHeroMobile] = useState('')
   const [add, setAdd] = useState(false)
   useEffect(() => {
     onGetHero()
@@ -30,6 +31,7 @@ const Hero: React.FC = () => {
           setId(res.data._id)
           setTitle(res.data.title)
           setHeroDesktop(res.data.heroDesktop)
+          setHeroMobile(res.data.heroMobile)
         }
         dispatch(LoadingAction(false))
       })
@@ -44,6 +46,7 @@ const Hero: React.FC = () => {
     const data = new FormData()
     data.append('title', title)
     data.append('heroDesktop', heroDesktop)
+    data.append('heroMobile', heroMobile)
     if (add) {
       addHero(data)
         .then((res) => {
@@ -102,7 +105,18 @@ const Hero: React.FC = () => {
             setHeroDesktop(e)
           }}
           imageIn={heroDesktop}
-          description="Imagem com 200px por 500px"
+          label="Imagem Desktop"
+        />
+      </Row>
+      <Row>
+        <CropImage
+          maxWidth={340}
+          maxHeight={640}
+          imageOut={(e) => {
+            setHeroMobile(e)
+          }}
+          imageIn={heroMobile}
+          label="Imagem Mobile"
         />
       </Row>
       <Container justify="center">

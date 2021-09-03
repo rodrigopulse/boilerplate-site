@@ -31,14 +31,20 @@ routes.post('/user/login', UsersController.login)
 routes.post(
   '/hero/add',
   Auth.authToken,
-  upload.single('heroDesktop'),
+  upload.fields([
+    { name: 'heroDesktop', maxCount: 1 },
+    { name: 'heroMobile', maxCount: 1 }
+  ]),
   HeroController.add
 )
 routes.get('/hero/get', HeroController.get)
 routes.put(
   '/hero/update',
   Auth.authToken,
-  upload.single('heroDesktop'),
+  upload.fields([
+    { name: 'heroDesktop', maxCount: 1 },
+    { name: 'heroMobile', maxCount: 1 }
+  ]),
   HeroController.update
 )
 

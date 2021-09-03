@@ -2,10 +2,19 @@ import Hero from '../schemas/Hero'
 import { renameImage } from '../utils'
 class HeroController {
   async add(req, res) {
-    req.file && renameImage(req.file.filename, 'hero-desktop.jpg')
-    req.body.heroDesktop = 'hero-desktop.jpg'
+    if (req.files) {
+      req.files.heroDesktop &&
+        renameImage(req.files.heroDesktop[0].filename, 'hero-desktop.jpg')
+      req.files.heroMobile &&
+        renameImage(req.files.heroMobile[0].filename, 'hero-mobile.jpg')
+    }
+    const data = {
+      title: req.body.title,
+      heroDesktop: 'hero-desktop.jpg',
+      heroMobile: 'hero-mobile.jpg'
+    }
     try {
-      const hero = await Hero.create(req.body)
+      const hero = await Hero.create(data)
       console.log(hero)
       return res.status(201).json({ message: 'Hero Criado' })
     } catch (err) {
@@ -14,14 +23,20 @@ class HeroController {
     }
   }
   async update(req, res) {
-    req.file && renameImage(req.file.filename, 'hero-desktop.jpg')
+    if (req.files) {
+      req.files.heroDesktop &&
+        renameImage(req.files.heroDesktop[0].filename, 'hero-desktop.jpg')
+      req.files.heroMobile &&
+        renameImage(req.files.heroMobile[0].filename, 'hero-mobile.jpg')
+    }
     try {
       if (!req.body._id) {
         return res.status(400).json({ message: 'Id incorreto' })
       }
       const data = {
         title: req.body.title,
-        heroDesktop: 'hero-desktop.jpg'
+        heroDesktop: 'hero-desktop.jpg',
+        heroMobile: 'hero-mobile.jpg'
       }
       const hero = await Hero.updateOne({ _id: req.body._id }, data)
       console.log(hero)

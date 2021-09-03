@@ -9,7 +9,7 @@ export const CropImage: React.FC<CropImageProps> = ({
   maxHeight,
   imageOut,
   imageIn,
-  description
+  label
 }) => {
   const inputImage = useRef<HTMLInputElement>(null)
   const [image, setImage] = useState<any>()
@@ -53,7 +53,7 @@ export const CropImage: React.FC<CropImageProps> = ({
       }}
     >
       <Row>
-        <label className="crop-image__label">Imagem Desktop</label>
+        <label className="crop-image__label">{label}</label>
         <div className="crop-image__image-canvas">
           {image ? (
             <img src={image} alt="Preview" />
@@ -63,6 +63,9 @@ export const CropImage: React.FC<CropImageProps> = ({
             </>
           )}
         </div>
+        <Text size="xs" color="light">
+          {`Imagem com ${maxWidth}px x ${maxHeight}px`}
+        </Text>
       </Row>
       <Container justify="end">
         <input
@@ -74,11 +77,6 @@ export const CropImage: React.FC<CropImageProps> = ({
           }}
         />
       </Container>
-      <Row>
-        <Text size="xs" color="light">
-          {description}
-        </Text>
-      </Row>
     </div>
   )
 }
