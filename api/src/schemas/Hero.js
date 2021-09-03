@@ -8,7 +8,7 @@ const HeroSchema = new Schema(
     }
   },
   {
-    imageDesktop: {
+    heroDesktop: {
       type: String,
       required: true
     }

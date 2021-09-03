@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
   const dispatch = useDispatch()
   const [id, setId] = useState('')
   const [title, setTitle] = useState('')
-  const [imageDesktop, setImageDesktop] = useState('')
+  const [heroDesktop, setHeroDesktop] = useState('')
   useEffect(() => {
     onGetHero()
   }, [])
@@ -23,6 +23,7 @@ const Hero: React.FC = () => {
     dispatch(LoadingAction(true))
     getHero()
       .then((res) => {
+        console.log(res)
         dispatch(LoadingAction(false))
         setId(res.data._id)
         setTitle(res.data.title)
@@ -37,7 +38,7 @@ const Hero: React.FC = () => {
     const data = new FormData()
     data.append('_id', id)
     data.append('title', title)
-    data.append('imageDesktop', imageDesktop)
+    data.append('heroDesktop', heroDesktop)
     updateHero(data)
       .then((res) => {
         dispatch(LoadingAction(false))
@@ -75,7 +76,7 @@ const Hero: React.FC = () => {
           maxWidth={640}
           maxHeight={640}
           imageOut={(e) => {
-            setImageDesktop(e)
+            setHeroDesktop(e)
           }}
         />
       </Row>

@@ -33,7 +33,7 @@ routes.get('/hero/get', HeroController.get)
 routes.put(
   '/hero/update',
   Auth.authToken,
-  upload.single('imageDesktop'),
+  upload.single('heroDesktop'),
   HeroController.update
 )
 

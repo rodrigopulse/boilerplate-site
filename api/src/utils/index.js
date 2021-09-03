@@ -1,0 +1,1 @@
+export { renameImage } from './image'
