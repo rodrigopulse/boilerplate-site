@@ -52,7 +52,7 @@ const Hero: React.FC = () => {
         .then((res) => {
           dispatch(LoadingAction(false))
           if (res.status === 201) {
-            onGetHero()
+            window.location.reload()
             dispatch(AlertAction(true, 'success', res.data.message))
           } else {
             dispatch(AlertAction(true, 'danger', res.data.message))
@@ -68,7 +68,7 @@ const Hero: React.FC = () => {
         .then((res) => {
           dispatch(LoadingAction(false))
           if (res.status === 200) {
-            onGetHero()
+            window.location.reload()
             dispatch(AlertAction(true, 'success', res.data.message))
           } else {
             dispatch(AlertAction(true, 'danger', res.data.message))

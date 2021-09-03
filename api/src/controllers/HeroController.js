@@ -1,11 +1,10 @@
 import Hero from '../schemas/Hero'
-import { renameImage } from '../utils'
 class HeroController {
   async add(req, res) {
     const data = {
       title: req.body.title,
-      heroDesktop: 'hero-desktop.jpg',
-      heroMobile: 'hero-mobile.jpg'
+      heroDesktop: 'heroDesktop.jpg',
+      heroMobile: 'heroMobile.jpg'
     }
     try {
       const hero = await Hero.create(data)
@@ -23,8 +22,8 @@ class HeroController {
       }
       const data = {
         title: req.body.title,
-        heroDesktop: 'hero-desktop.jpg',
-        heroMobile: 'hero-mobile.jpg'
+        heroDesktop: 'heroDesktop.jpg',
+        heroMobile: 'heroMobile.jpg'
       }
       const hero = await Hero.updateOne({ _id: req.body._id }, data)
       console.log(hero)
