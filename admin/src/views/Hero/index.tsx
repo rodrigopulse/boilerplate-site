@@ -102,6 +102,7 @@ const Hero: React.FC = () => {
             setHeroDesktop(e)
           }}
           imageIn={heroDesktop}
+          description="Imagem com 200px por 500px"
         />
       </Row>
       <Container justify="center">

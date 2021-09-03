@@ -1,9 +1,10 @@
 .crop-image {
   cursor: pointer;
   &__image-canvas {
-    width: 100%;
+    width: auto;
     height: auto;
-    min-height: 200px;
+    min-width: 250px;
+    min-height: 100px;
     background: #c4c4c4;
     display: flex;
     justify-content: center;

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Button, Container, Row } from '../'
+import { Text, Container, Row } from '../'
 import Resizer from 'react-image-file-resizer'
 import { CropImageProps } from './types'
 import './styles.scss'
@@ -8,7 +8,8 @@ export const CropImage: React.FC<CropImageProps> = ({
   maxWidth,
   maxHeight,
   imageOut,
-  imageIn
+  imageIn,
+  description
 }) => {
   const inputImage = useRef<HTMLInputElement>(null)
   const [image, setImage] = useState<any>()
@@ -16,6 +17,7 @@ export const CropImage: React.FC<CropImageProps> = ({
   useEffect(() => {
     typeof imageIn === 'string' &&
       setImage(`http://localhost:3333/images/${imageIn}`)
+    !imageIn && setImage(null)
   }, [imageIn])
 
   const resizeFile = (file: any) =>
@@ -53,7 +55,13 @@ export const CropImage: React.FC<CropImageProps> = ({
       <Row>
         <label className="crop-image__label">Imagem Desktop</label>
         <div className="crop-image__image-canvas">
-          {image ? <img src={image} alt="Preview" /> : 'Sem imagem'}
+          {image ? (
+            <img src={image} alt="Preview" />
+          ) : (
+            <>
+              <span className="material-icons">image</span>
+            </>
+          )}
         </div>
       </Row>
       <Container justify="end">
@@ -66,6 +74,11 @@ export const CropImage: React.FC<CropImageProps> = ({
           }}
         />
       </Container>
+      <Row>
+        <Text size="xs" color="light">
+          {description}
+        </Text>
+      </Row>
     </div>
   )
 }

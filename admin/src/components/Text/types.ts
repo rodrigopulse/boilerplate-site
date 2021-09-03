@@ -1,3 +1,3 @@
 export interface TextProps {
-  size: 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
 }
