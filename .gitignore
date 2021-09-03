@@ -6,6 +6,8 @@ node_modules
 build
 dist
 
+api/images
+
 .DS_Store
 */.env
 .env.production
