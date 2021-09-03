@@ -11,7 +11,7 @@ import HeroController from './controllers/HeroController'
 const storage = multer.diskStorage({
   destination: './images',
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '.jpg')
+    cb(null, file.fieldname + '.jpg')
   }
 })
 

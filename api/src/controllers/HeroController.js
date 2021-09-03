@@ -2,12 +2,6 @@ import Hero from '../schemas/Hero'
 import { renameImage } from '../utils'
 class HeroController {
   async add(req, res) {
-    if (req.files) {
-      req.files.heroDesktop &&
-        renameImage(req.files.heroDesktop[0].filename, 'hero-desktop.jpg')
-      req.files.heroMobile &&
-        renameImage(req.files.heroMobile[0].filename, 'hero-mobile.jpg')
-    }
     const data = {
       title: req.body.title,
       heroDesktop: 'hero-desktop.jpg',
@@ -23,12 +17,6 @@ class HeroController {
     }
   }
   async update(req, res) {
-    if (req.files) {
-      req.files.heroDesktop &&
-        renameImage(req.files.heroDesktop[0].filename, 'hero-desktop.jpg')
-      req.files.heroMobile &&
-        renameImage(req.files.heroMobile[0].filename, 'hero-mobile.jpg')
-    }
     try {
       if (!req.body._id) {
         return res.status(400).json({ message: 'Id incorreto' })
