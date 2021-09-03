@@ -7,7 +7,7 @@ import {
   Button,
   CropImage
 } from '../../components'
-import { getHero, updateHero, addHero } from '../../services/hero'
+import { getHero, addUpdateHero } from '../../services/hero'
 import { AlertAction, LoadingAction } from '../../store/actions'
 import { useDispatch } from 'react-redux'
 
@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
         dispatch(LoadingAction(false))
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
         dispatch(AlertAction(true, 'danger', 'erro'))
         dispatch(LoadingAction(false))
       })
@@ -47,38 +47,20 @@ const Hero: React.FC = () => {
     data.append('title', title)
     data.append('heroDesktop', heroDesktop)
     data.append('heroMobile', heroMobile)
-    if (add) {
-      addHero(data)
-        .then((res) => {
-          dispatch(LoadingAction(false))
-          if (res.status === 201) {
-            window.location.reload()
-            dispatch(AlertAction(true, 'success', res.data.message))
-          } else {
-            dispatch(AlertAction(true, 'danger', res.data.message))
-          }
-        })
-        .catch((err) => {
-          dispatch(LoadingAction(false))
-          dispatch(AlertAction(true, 'danger', 'erro'))
-        })
-    } else {
-      data.append('_id', id)
-      updateHero(data)
-        .then((res) => {
-          dispatch(LoadingAction(false))
-          if (res.status === 200) {
-            window.location.reload()
-            dispatch(AlertAction(true, 'success', res.data.message))
-          } else {
-            dispatch(AlertAction(true, 'danger', res.data.message))
-          }
-        })
-        .catch((err) => {
-          dispatch(LoadingAction(false))
-          dispatch(AlertAction(true, 'danger', 'erro'))
-        })
-    }
+    !add && data.append('_id', id)
+    addUpdateHero(data, add ? 'POST' : 'PUT')
+      .then((res) => {
+        dispatch(LoadingAction(false))
+        if (res.status === 200 || res.status === 201) {
+          dispatch(AlertAction(true, 'success', res.data.message))
+        } else {
+          dispatch(AlertAction(true, 'danger', res.data.message))
+        }
+      })
+      .catch((err) => {
+        dispatch(LoadingAction(false))
+        dispatch(AlertAction(true, 'danger', 'erro'))
+      })
   }
   return (
     <Container content>

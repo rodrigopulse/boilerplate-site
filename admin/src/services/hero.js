@@ -1,12 +1,14 @@
 import axios from 'axios'
 
-export const addHero = async (data) => {
+export const addUpdateHero = async (data, method) => {
   try {
     const hero = await axios({
-      url: `${process.env.REACT_APP_API_URL}/hero/add`,
+      url: `${process.env.REACT_APP_API_URL}/hero/${
+        method === 'POST' ? 'add' : 'update'
+      }`,
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       data: data,
-      method: 'POST'
+      method: method
     })
     return hero
   } catch (err) {
@@ -19,20 +21,6 @@ export const getHero = async () => {
     const hero = await axios({
       url: `${process.env.REACT_APP_API_URL}/hero/get`,
       method: 'GET'
-    })
-    return hero
-  } catch (err) {
-    return err.response
-  }
-}
-
-export const updateHero = async (data) => {
-  try {
-    const hero = await axios({
-      url: `${process.env.REACT_APP_API_URL}/hero/update`,
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      data: data,
-      method: 'PUT'
     })
     return hero
   } catch (err) {
