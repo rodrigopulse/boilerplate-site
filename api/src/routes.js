@@ -27,7 +27,7 @@ routes.get('/user/getall', Auth.authToken, UsersController.get)
 routes.post('/user/token', Auth.authToken, UsersController.token)
 routes.post('/user/login', UsersController.login)
 
-// Pages
+// Hero
 routes.post(
   '/hero/add',
   Auth.authToken,
